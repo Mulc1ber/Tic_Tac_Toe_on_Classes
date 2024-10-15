@@ -1,11 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { setIsCurrentPlayer, setFields, setIsDraw, setIsGameEnded } from '../../Actions';
-import { selectIsGameEnded } from '../../Selectors';
 
-export const Restart = () => {
-    const dispatch = useDispatch();
-    const isGameEnded = useSelector(selectIsGameEnded);
-
+export const RestartContainer = ({ dispatch, isGameEnded }) => {
     const handleRestart = () => {
         dispatch(setFields(Array(9).fill('')));
         dispatch(setIsCurrentPlayer('X'));
@@ -23,3 +19,9 @@ export const Restart = () => {
         </button>
     );
 };
+
+const mapStateToProps = (state) => ({
+    isGameEnded: state.isGameEnded,
+});
+
+export const Restart = connect(mapStateToProps)(RestartContainer);

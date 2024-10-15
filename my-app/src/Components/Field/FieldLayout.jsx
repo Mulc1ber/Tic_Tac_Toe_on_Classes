@@ -1,15 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { PLAYER } from '../../Constants';
 import { checkEmpty, checkWinner } from '../../utils';
 import { setIsCurrentPlayer, setFields, setIsDraw, setIsGameEnded } from '../../Actions';
-import { selectFields, selectCurrentPlayer, selectIsGameEnded } from '../../Selectors/';
 
-export const FieldLayout = () => {
-    const dispatch = useDispatch();
-    const fields = useSelector(selectFields);
-    const currentPlayer = useSelector(selectCurrentPlayer);
-    const isGameEnded = useSelector(selectIsGameEnded);
-
+export const FieldLayoutContainer = ({ dispatch, fields, currentPlayer, isGameEnded }) => {
     const handleClick = (index) => {
         if (fields[index] === '' && isGameEnded === false) {
             const newFields = fields.slice();
@@ -46,3 +40,11 @@ export const FieldLayout = () => {
         </div>
     );
 };
+
+const mapStateToProps = (state) => ({
+    fields: state.fields,
+    currentPlayer: state.currentPlayer,
+    isGameEnded: state.isGameEnded,
+});
+
+export const FieldLayout = connect(mapStateToProps)(FieldLayoutContainer);

@@ -1,11 +1,6 @@
-import { useSelector } from 'react-redux';
-import { selectCurrentPlayer, selectIsGameEnded, selectIsDraw } from '../../Selectors';
+import { connect } from 'react-redux';
 
-export const InformationLayout = () => {
-    const currentPlayer = useSelector(selectCurrentPlayer);
-    const isGameEnded = useSelector(selectIsGameEnded);
-    const isDraw = useSelector(selectIsDraw);
-
+export const InformationLayoutContainer = ({ currentPlayer, isGameEnded, isDraw }) => {
     const displayingInformation = () => {
         if (isDraw) {
             return 'Ничья';
@@ -18,3 +13,11 @@ export const InformationLayout = () => {
 
     return <div className="text-3xl text-center font-bold">{displayingInformation()}</div>;
 };
+
+const mapStateToProps = (state) => ({
+    currentPlayer: state.currentPlayer,
+    isGameEnded: state.isGameEnded,
+    isDraw: state.isDraw,
+});
+
+export const InformationLayout = connect(mapStateToProps)(InformationLayoutContainer);
