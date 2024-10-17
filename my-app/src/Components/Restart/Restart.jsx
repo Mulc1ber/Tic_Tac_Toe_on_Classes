@@ -1,17 +1,21 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setIsCurrentPlayer, setFields, setIsDraw, setIsGameEnded } from '../../Actions';
 
-export const RestartContainer = ({ handleRestart, isGameEnded }) => {
-    return (
-        <button
-            className="px-4 py-2 rounded-lg border-0 bg-black text-white text-base disabled:opacity-50"
-            disabled={!isGameEnded}
-            onClick={handleRestart}
-        >
-            Начать заново
-        </button>
-    );
-};
+export class RestartContainer extends Component {
+    render() {
+        const { handleRestart, isGameEnded } = this.props;
+        return (
+            <button
+                className="px-4 py-2 rounded-lg border-0 bg-black text-white text-base disabled:opacity-50"
+                disabled={!isGameEnded}
+                onClick={handleRestart}
+            >
+                Начать заново
+            </button>
+        );
+    }
+}
 
 const mapStateToProps = (state) => ({
     isGameEnded: state.isGameEnded,

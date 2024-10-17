@@ -1,18 +1,21 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-export const InformationLayoutContainer = ({ currentPlayer, isGameEnded, isDraw }) => {
-    const displayingInformation = () => {
-        if (isDraw) {
-            return 'Ничья';
-        } else if (!isDraw && isGameEnded) {
-            return `Победа: "${currentPlayer}"`;
-        } else {
-            return `Ходит: "${currentPlayer}"`;
-        }
-    };
-
-    return <div className="text-3xl text-center font-bold">{displayingInformation()}</div>;
-};
+export class InformationLayoutContainer extends Component {
+    render() {
+        const { currentPlayer, isGameEnded, isDraw } = this.props;
+        return (
+            <div className="text-3xl text-center font-bold">
+                {isDraw
+                    ? 'Ничья'
+                    : isGameEnded
+                      ? `Победа: "${currentPlayer}"`
+                      : `Ходит: "${currentPlayer}"`}
+            </div>
+            // <div className="text-3xl text-center font-bold">{this.displayingInformation()}</div>
+        );
+    }
+}
 
 const mapStateToProps = (state) => ({
     currentPlayer: state.currentPlayer,
